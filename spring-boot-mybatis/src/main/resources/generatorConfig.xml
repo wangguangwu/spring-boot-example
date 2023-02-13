@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+    <!-- targetRuntime
+        1. MyBatis3Simple，代表不生成 Example 文件。
+        2. MyBatis3，MyBatis3 代表生成 Example 文件-->
+    <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 可以使用``包括字段名，避免字段名与sql保留字冲突报错 -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 自动生成 lombok 注解配置和根据数据库注释为实体添加注释, 需要自己编译文件才可以实现 -->
+        <plugin type="org.mybatis.generator.plugins.LombokPlugin">
+            <property name="hasLombok" value="true"/>
+        </plugin>
+
+        <!-- 可以自定义生成 model 的代码注释 -->
+        <commentGenerator type="com.wangguangwu.mybatis.mbg.CommentGenerator">
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+        <!-- JDBC 数据库配置 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+            <!-- 解决 mysql 驱动升级到 8.0 后不生成指定数据库代码的问题 -->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <!-- macOS 中使用斜杠为 "/"，windows 中使用斜杠为 "\" -->
+        <!-- 指定生成 model 的路径 -->
+        <javaModelGenerator targetPackage="com.wangguangwu.mybatis.mbg.model"
+                            targetProject="spring-boot-mybatis/src/main/java"/>
+        <!-- 指定生成mapper.xml的路径 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="spring-boot-mybatis/src/main/resources"/>
+        <!-- 指定生成 mapper 接口的的路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.wangguangwu.mybatis.mbg.mapper"
+                             targetProject="spring-boot-mybatis/src/main/java"/>
+        <!-- 生成全部表tableName设为% -->
+        <table tableName="user">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
