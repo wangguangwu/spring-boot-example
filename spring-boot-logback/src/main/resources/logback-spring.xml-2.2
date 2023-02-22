@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 属性文件:在 properties 文件中找到对应的配置项 -->
+    <springProperty scope="context" name="log.path" source="logging.file.path"/>
+    <springProperty scope="context" name="log.level" source="logging.file.level"/>
+
+    <!-- 定义日志保留天数 -->
+    <property name="MAX_HISTORY" value="10"/>
+    <!-- 定义单个日志文件大小 -->
+    <property name="MAX_FILE_SIZE" value="100MB"/>
+    <!-- 定义日志文件总大小 -->
+    <property name="TOTAL_SIZE_CAP" value="1GB"/>
+
+    <!-- 彩色日志 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %green([%thread]) %highlight(%-5level) %cyan(%logger{20}) - [%method,%line] - %msg%n"/>
+    <!-- 默认的控制台日志输出，一般生产环境都是后台启动，这个没太大作用 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- 业务日志处理 -->
+    <appender name="WANG-LOGGER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 追加写入 -->
+        <append>true</append>
+        <file>
+            ${log.path}/${log.level}/${log.level}.log
+        </file>
+        <!-- 日志过滤 -->
+        <!-- 会打印出当前层级及以上层级的日志，如果想要只打印当前层级，可以更换过滤器为 LevelFilter -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${log.level}</level>
+        </filter>
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>${log.level}</level>-->
+<!--            &lt;!&ndash; 匹配则全部接受 &ndash;&gt;-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            &lt;!&ndash; 不匹配则全部拒绝 &ndash;&gt;-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+        <!-- 基于文件大小和时间的滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${log.path}/${log.level}/${log.level}-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <MaxHistory>${MAX_HISTORY}</MaxHistory>
+            <!-- 单个日志文件大小 -->
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <!-- 日志归档文件总大小 -->
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <!-- 日志输出格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36}: %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- logger 负责打印 com.wangguangwu.logback 下的日志 -->
+    <!-- additivity 设置为 true，表示只在当前 logger 中的 appender-ref 中生效 -->
+    <logger name="com.wangguangwu.logback" level="${log.level}" additivity="false">
+        <appender-ref ref="WANG-LOGGER"/>
+    </logger>
+
+    <!-- root 指向控制台输出 -->
+    <root level="${log.level}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

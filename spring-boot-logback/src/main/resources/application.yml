@@ -1,0 +1,6 @@
+# logger configuration
+logging:
+  file:
+    level: info
+    # logs location
+    path: ./logs

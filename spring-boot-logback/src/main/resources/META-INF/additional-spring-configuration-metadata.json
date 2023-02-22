@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "log.level",
+      "type": "java.lang.String",
+      "description": "Description for log.level."
+    },
+    {
+      "name": "log.file.path",
+      "type": "java.lang.String",
+      "description": "Description for log.file.path."
+    },
+    {
+      "name": "logging.file.level",
+      "type": "java.lang.String",
+      "description": "Description for logging.file.level."
+    }
+  ] }
