@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,6 +19,8 @@ import java.time.LocalDateTime;
  * @author wangguangwu
  * @since 2023-02-27
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @TableName("user")
 public class UserDO implements Serializable {
@@ -64,4 +68,9 @@ public class UserDO implements Serializable {
      */
     @TableField("gmt_modified")
     private LocalDateTime gmtModified;
+
+    public UserDO(Long id, String userName) {
+        this.id = id;
+        this.userName = userName;
+    }
 }

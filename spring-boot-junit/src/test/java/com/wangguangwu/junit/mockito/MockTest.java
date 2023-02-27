@@ -1,4 +1,4 @@
-package com.wangguangwu.junit.demo;
+package com.wangguangwu.junit.mockito;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
