@@ -1,5 +1,6 @@
 package com.wangguangwu.junit.demo;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.*;
 
 import java.util.concurrent.TimeUnit;
@@ -7,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author wangguangwu
  */
+@DisplayName("基本测试类")
 class BaseTest {
 
     //========================== 非测试方法 ==========================
@@ -33,6 +35,7 @@ class BaseTest {
 
     //========================== 非测试方法 ==========================
 
+    @DisplayName("hello")
     @Test
     void hello() {
         System.out.println("@Test 测试方法");
@@ -55,6 +58,7 @@ class BaseTest {
         System.out.println("@Disabled 测试时会跳过");
     }
 
+    @Ignore
     @Test
     void ignore() {
         System.out.println("@Ignore 暂不执行该方法");
