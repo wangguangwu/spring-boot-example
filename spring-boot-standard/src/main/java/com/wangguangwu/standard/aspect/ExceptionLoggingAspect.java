@@ -1,4 +1,4 @@
-package com.wangguangwu.responseandexception.aspect;
+package com.wangguangwu.standard.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class ExceptionLoggingAspect {
 
-    @Pointcut("execution(public * com.wangguangwu.responseandexception.controller.*.*(..))")
+    @Pointcut("execution(public * com.wangguangwu.standard.controller.*.*(..))")
     public void exceptionHandler() {
     }
 
@@ -31,6 +31,6 @@ public class ExceptionLoggingAspect {
             return;
         }
         HttpServletRequest request = attributes.getRequest();
-        log.error("error url: {}, message: {}, e: ", request.getServletPath(), e.getMessage(), e);
+        log.error("error url: {}, message: {}, e: ", request.getRequestURL().toString(), e.getMessage(), e);
     }
 }

@@ -1,8 +1,8 @@
-package com.wangguangwu.responseandexception.aspect;
+package com.wangguangwu.standard.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wangguangwu.responseandexception.response.Response;
+import com.wangguangwu.standard.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.core.MethodParameter;

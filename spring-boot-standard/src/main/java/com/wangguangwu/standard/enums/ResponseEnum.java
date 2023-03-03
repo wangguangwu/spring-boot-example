@@ -1,4 +1,4 @@
-package com.wangguangwu.responseandexception.enums;
+package com.wangguangwu.standard.enums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

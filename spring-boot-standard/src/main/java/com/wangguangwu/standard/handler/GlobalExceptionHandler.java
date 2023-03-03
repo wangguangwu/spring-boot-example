@@ -1,8 +1,8 @@
-package com.wangguangwu.responseandexception.handler;
+package com.wangguangwu.standard.handler;
 
-import com.wangguangwu.responseandexception.enums.ResponseEnum;
-import com.wangguangwu.responseandexception.exception.ServiceException;
-import com.wangguangwu.responseandexception.response.Response;
+import com.wangguangwu.standard.enums.ResponseEnum;
+import com.wangguangwu.standard.exception.ServiceException;
+import com.wangguangwu.standard.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.converter.HttpMessageNotReadableException;

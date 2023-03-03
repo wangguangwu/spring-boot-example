@@ -1,6 +1,6 @@
-package com.wangguangwu.responseandexception.response;
+package com.wangguangwu.standard.response;
 
-import com.wangguangwu.responseandexception.enums.ResponseEnum;
+import com.wangguangwu.standard.enums.ResponseEnum;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Value;
