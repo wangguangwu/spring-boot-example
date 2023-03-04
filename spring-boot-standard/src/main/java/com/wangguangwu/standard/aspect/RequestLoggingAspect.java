@@ -37,7 +37,6 @@ public class RequestLoggingAspect {
         if (logOptions.isUrl()) {
             log.info("request url: {}", httpServletRequest.getRequestURL().toString());
         }
-
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         // request
         if (logOptions.isRequest()) {
