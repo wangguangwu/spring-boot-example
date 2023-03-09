@@ -8,7 +8,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
 <#if entityLombokModel>
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
     <#if chainModel>
 import lombok.experimental.Accessors;
     </#if>
@@ -25,6 +28,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 <#if entityLombokModel>
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
     <#if chainModel>
 @Accessors(chain = true)
     </#if>
@@ -50,6 +56,7 @@ public class ${entity} {
 </#if>
 <#if entitySerialVersionUID>
     private static final long serialVersionUID = 1L;
+
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>

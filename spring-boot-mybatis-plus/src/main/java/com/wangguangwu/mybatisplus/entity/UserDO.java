@@ -1,27 +1,31 @@
 package com.wangguangwu.mybatisplus.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wangguangwu
  * @since 2023-03-06
  */
 @Data
-@TableName("user")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName("USER")
 public class UserDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     /**
      * 主键
      */
@@ -47,9 +51,17 @@ public class UserDO implements Serializable {
     private String userAddress;
 
     /**
+     * 乐观锁版本号, 默认从 1 开始
+     */
+    @TableField("version")
+    @Version
+    private Integer version;
+
+    /**
      * 是否删除；0：未删除，1：删除
      */
     @TableField("is_deleted")
+    @TableLogic
     private Integer isDeleted;
 
     /**

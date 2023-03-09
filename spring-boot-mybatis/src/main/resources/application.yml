@@ -12,7 +12,7 @@ spring:
 # mybatis configuration
 mybatis:
   # entity location
-  type-aliases-package: com.wangguangwu.springbootmybatis.entity
+  type-aliases-package: com.wangguangwu.mybatis.mbg.model
   # mapper.xml location
   mapper-locations: classpath:mapper/*.xml
   configuration:

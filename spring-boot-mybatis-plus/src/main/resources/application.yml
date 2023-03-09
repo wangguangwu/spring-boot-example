@@ -1,1 +1,24 @@
+spring:
+  # database configuration
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/masterdb?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    username: root
+    password: 123456
 
+mybatis-plus:
+  # entity location
+  type-aliases-package: com.wangguangwu.mybatisplus.entity
+  configuration:
+    # log
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # camelCase conversion on
+    map-underscore-to-camel-case: true
+  # mapper.xml location
+  mapper-locations: classpath*:mapper/*.xml
+  global-config:
+    # logic delete
+    db-config:
+      logic-delete-field: is_deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0

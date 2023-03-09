@@ -92,7 +92,7 @@ public class CodeGenerator {
                                 // 乐观锁属性名(实体)
                                 .versionPropertyName("version")
                                 // 逻辑删除字段名(数据库)
-                                .logicDeleteColumnName("deleted")
+                                .logicDeleteColumnName("is_deleted")
                                 // 逻辑删除属性名(实体)
                                 .logicDeletePropertyName("deleted")
                                 // 数据库表映射到实体的命名策略 -- 下划线转驼峰命名
