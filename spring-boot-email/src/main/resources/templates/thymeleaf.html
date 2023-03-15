@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>hello thymeleaf</title>
+</head>
+<body>
+<div>hello thymeleaf</div>
+<div><span style="color: dodgerblue" th:text="${name}"></span></div>
+<div>blog address:<span style="color: #ff0000" th:text="${blog}"></span>, thanks</div>
+<p style="color: #de9e87">下列是图片</p>
+<br/>
+<div th:each="image : ${images}">
+    <p style="color: black">图片： <span th:text="${image}"></span></p>
+    <img th:src="'cid:' + ${image}" alt="Dynamic Image"/>
+</div>
+</div>
+</body>
+</html>

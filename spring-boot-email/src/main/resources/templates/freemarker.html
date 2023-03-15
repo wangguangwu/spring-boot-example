@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello freemarker</title>
+</head>
+<body>
+<div>hello freemarker</div>
+<div><span style="color: dodgerblue">${name}</span></div>
+<div>blog address:<span style="color: #ff0000">${blog}</span>, thanks</div>
+<p style="color: #de9e87">下列是图片</p>
+<br/>
+<#list images as image>
+    <div>
+        <p style="color: black">图片：${image}</p>
+        <img src="cid:${image}" alt="Dynamic Image"/>
+    </div>
+</#list>
+</body>
+</html>
