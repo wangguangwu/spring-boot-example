@@ -1,5 +1,7 @@
 package com.wangguangwu.mybatisplus.service;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.wangguangwu.mybatisplus.entity.UserDO;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -34,5 +36,13 @@ class UserDynamicServiceTest {
         List<UserDO> list = userDynamicService.selectAllSlave();
         Assertions.assertEquals(1, list.size());
         list.forEach(System.out::println);
+    }
+
+    @Test
+    @Order(3)
+    @DS("slave_1")
+    void testInsertWithTransaction() {
+        UserDO user = UserDO.builder().userName("张三").userAge(25).build();
+        Assertions.assertThrows(MybatisPlusException.class, () -> userDynamicService.insertWithTransaction(user));
     }
 }

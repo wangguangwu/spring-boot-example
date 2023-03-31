@@ -1,6 +1,7 @@
 package com.wangguangwu.mybatisplus.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -62,18 +63,20 @@ public class UserDO implements Serializable {
      */
     @TableField("is_deleted")
     @TableLogic
-    private Integer isDeleted;
+    private Byte isDeleted;
 
     /**
      * 创建时间
      */
-    @TableField("gmt_create")
+    @TableField(value = "gmt_create", fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private LocalDateTime gmtCreate;
 
     /**
      * 更新时间
      */
-    @TableField("gmt_modified")
+    @TableField(value = "gmt_modified", fill = FieldFill.UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private LocalDateTime gmtModified;
 
 }

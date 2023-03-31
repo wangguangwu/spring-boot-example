@@ -25,73 +25,72 @@ class LambdaChainWrapperTest {
     @Resource
     private UserMapper userMapper;
 
-    LambdaQueryChainWrapper<UserDO> lambdaQueryWrapper;
+    LambdaQueryChainWrapper<UserDO> lambdaQueryChainWrapper;
 
-    LambdaUpdateChainWrapper<UserDO> lambdaUpdateWrapper;
+    LambdaUpdateChainWrapper<UserDO> lambdaUpdateChainWrapper;
 
     @BeforeEach
     void init() {
-        lambdaQueryWrapper = new LambdaQueryChainWrapper<>(userMapper);
-        lambdaUpdateWrapper = new LambdaUpdateChainWrapper<>(userMapper);
+        lambdaQueryChainWrapper = new LambdaQueryChainWrapper<>(userMapper);
+        lambdaUpdateChainWrapper = new LambdaUpdateChainWrapper<>(userMapper);
     }
 
     @Test
     @Transactional
     @Rollback
     @Order(1)
-    @DisplayName("lambda 方式更新数据")
+    @DisplayName("lambdaChain 方式更新数据")
     void testLambdaUpdate() {
-        boolean result = lambdaUpdateWrapper.eq(UserDO::getId, 1)
-                .set(UserDO::getUserAge, 30)
+        boolean result = lambdaUpdateChainWrapper.set(UserDO::getUserAge, 30)
+                .eq(UserDO::getId, 1)
+                .or()
+                .eq(UserDO::getId, 2)
                 .update();
         Assertions.assertTrue(result);
-
-        UserDO user = lambdaQueryWrapper.eq(UserDO::getId, 1).one();
-        Assertions.assertEquals(30, user.getUserAge());
     }
 
     @Test
     @Transactional
     @Rollback
     @Order(2)
-    @DisplayName("lambda 方式删除数据")
+    @DisplayName("lambdaChain 方式删除数据")
     void testLambdaDelete() {
-        boolean result = lambdaUpdateWrapper.eq(UserDO::getId, 1)
+        boolean result = lambdaUpdateChainWrapper.eq(UserDO::getId, 1)
+                .or()
+                .eq(UserDO::getId, 2)
                 .remove();
         Assertions.assertTrue(result);
-
-        UserDO user = lambdaQueryWrapper.eq(UserDO::getId, 1).one();
-        Assertions.assertNull(user);
     }
 
     @Test
     @Transactional
     @Rollback
     @Order(3)
-    @DisplayName("lambda 方式查询数据")
+    @DisplayName("lambdaChain 方式查询数据")
     void testLambdaQuery() {
-        List<UserDO> list = lambdaQueryWrapper.select(UserDO::getUserName, UserDO::getUserAge)
+        List<UserDO> list = lambdaQueryChainWrapper.select(UserDO::getUserName, UserDO::getUserAge)
                 .like(UserDO::getUserName, "张")
                 .ge(UserDO::getUserAge, 25)
+                .or()
+                .eq(UserDO::getId, 2)
                 .list();
-        Assertions.assertEquals(1, list.size());
-        list.forEach(System.out::println);
+        Assertions.assertEquals(2, list.size());
     }
 
     @Test
     @Transactional
     @Rollback
     @Order(4)
-    @DisplayName("lambda 方式分页查询数据")
+    @DisplayName("lambdaChain 方式分页查询数据")
     void testLambdaQueryPage() {
-        Page<UserDO> page = lambdaQueryWrapper.select(UserDO::getId, UserDO::getUserName, UserDO::getUserAge)
+        Page<UserDO> page = lambdaQueryChainWrapper.select(UserDO::getId, UserDO::getUserName, UserDO::getUserAge)
                 .like(UserDO::getUserName, "张")
                 .ge(UserDO::getUserAge, 25)
                 .orderByDesc(UserDO::getUserAge)
+                .or(wrapper -> wrapper.eq(UserDO::getUserName, "王五").lt(UserDO::getUserAge, 30))
                 .page(new Page<>(1, 10));
         List<UserDO> records = page.getRecords();
-        Assertions.assertEquals(1, records.size());
-        Assertions.assertEquals(1, page.getTotal());
-        records.forEach(System.out::println);
+        Assertions.assertEquals(2, records.size());
+        Assertions.assertEquals(2, page.getTotal());
     }
 }

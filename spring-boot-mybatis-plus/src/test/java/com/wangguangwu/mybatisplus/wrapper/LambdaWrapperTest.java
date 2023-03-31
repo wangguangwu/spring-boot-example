@@ -25,17 +25,24 @@ class LambdaWrapperTest {
     @Resource
     private UserMapper userMapper;
 
+    LambdaQueryWrapper<UserDO> lambdaQueryWrapper;
+
+    LambdaUpdateWrapper<UserDO> lambdaUpdateWrapper;
+
+    @BeforeEach
+    void init() {
+        lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+    }
+
     @Test
     @Order(1)
     @DisplayName("Lambda 方式实现查询")
     void testLambdaSelect() {
-        LambdaQueryWrapper<UserDO> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         // 使用 Lambda 表达式作为查询条件
-        lambdaQueryWrapper.eq(UserDO::getUserName, "张三")
-                .ge(UserDO::getUserAge, 24);
+        lambdaQueryWrapper.eq(UserDO::getUserName, "张三").ge(UserDO::getUserAge, 24);
         List<UserDO> list = userMapper.selectList(lambdaQueryWrapper);
         Assertions.assertEquals(1, list.size());
-        list.forEach(System.out::println);
     }
 
     @Test
@@ -44,11 +51,8 @@ class LambdaWrapperTest {
     @Order(2)
     @DisplayName("Lambda 方式实现更新")
     void testLambdaUpdate() {
-        LambdaUpdateWrapper<UserDO> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
         // 使用 Lambda 表达式作为更新条件和更新值
-        lambdaUpdateWrapper.eq(UserDO::getUserName, "张三")
-                .ge(UserDO::getUserAge, 24)
-                .set(UserDO::getUserAge, 26);
+        lambdaUpdateWrapper.eq(UserDO::getUserName, "张三").ge(UserDO::getUserAge, 24).set(UserDO::getUserAge, 26);
         int rows = userMapper.update(null, lambdaUpdateWrapper);
         Assertions.assertEquals(1, rows);
     }
@@ -59,10 +63,8 @@ class LambdaWrapperTest {
     @Order(3)
     @DisplayName("Lambda 方式实现删除")
     void testLambdaDelete() {
-        LambdaQueryWrapper<UserDO> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         // 使用 Lambda 表达式作为删除条件
-        lambdaQueryWrapper.eq(UserDO::getUserName, "张三")
-                .ge(UserDO::getUserAge, 24);
+        lambdaQueryWrapper.eq(UserDO::getUserName, "张三").ge(UserDO::getUserAge, 24);
         int rows = userMapper.delete(lambdaQueryWrapper);
         Assertions.assertEquals(1, rows);
     }

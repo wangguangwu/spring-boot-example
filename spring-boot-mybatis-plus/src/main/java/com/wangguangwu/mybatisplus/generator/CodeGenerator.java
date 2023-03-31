@@ -80,10 +80,10 @@ public class CodeGenerator {
                                 // 设置过滤表前缀
                                 .addTablePrefix("")
                                 // 去掉Service的 "I" 前缀
-                                .serviceBuilder().formatServiceFileName("%sService").fileOverride()
+                                .serviceBuilder().formatServiceFileName("%sService").enableFileOverride()
                                 // 开启 lombok
                                 .entityBuilder()
-                                .formatFileName("%sDO").fileOverride()
+                                .formatFileName("%sDO").enableFileOverride()
                                 .enableLombok()
                                 // 开启生成实体时生成字段注解
                                 .enableTableFieldAnnotation()
@@ -100,7 +100,7 @@ public class CodeGenerator {
                                 // 数据库表字段映射到实体的命名策略 -- 下划线转驼峰命名
                                 .columnNaming(NamingStrategy.underline_to_camel)
                                 // 覆盖原文件
-                                .mapperBuilder().fileOverride()
+                                .mapperBuilder().enableFileOverride()
                 )
                 // 自定义模板，在实体类上加上 @Data 注解
                 // 不需要可以注释掉

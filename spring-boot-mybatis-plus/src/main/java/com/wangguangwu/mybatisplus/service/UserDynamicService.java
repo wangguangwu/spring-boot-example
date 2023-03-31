@@ -25,4 +25,19 @@ public interface UserDynamicService {
      */
     List<UserDO> selectAllSlave();
 
+    /**
+     * 插入数据
+     *
+     * @param user user
+     * @return boolean
+     */
+    boolean insert(UserDO user);
+
+    /**
+     * 在多数据源环境下使用事务
+     *
+     * @param user user
+     */
+    void insertWithTransaction(UserDO user);
+
 }

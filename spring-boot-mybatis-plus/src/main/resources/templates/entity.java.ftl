@@ -12,9 +12,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-    <#if chainModel>
+<#if chainModel>
 import lombok.experimental.Accessors;
-    </#if>
+</#if>
 </#if>
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -89,6 +89,10 @@ public class ${entity} {
 <#else>
     @TableField(fill = FieldFill.${field.fill})
 </#if>
+<#elseif field.name == "gmt_create">
+    @TableField(value = "${field.name}", fill = FieldFill.INSERT)
+<#elseif field.name == "gmt_modified">
+    @TableField(value = "${field.name}", fill = FieldFill.UPDATE)
 <#elseif field.convert>
     @TableField("${field.annotationColumnName}")
 </#if>
@@ -100,7 +104,7 @@ public class ${entity} {
 <#if field.logicDeleteField>
     @TableLogic
 </#if>
-<#if field.propertyType == "Date">
+<#if field.propertyType == "Date" || field.propertyType == "LocalDateTime">
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
 </#if>
     private ${field.propertyType} ${field.propertyName};
