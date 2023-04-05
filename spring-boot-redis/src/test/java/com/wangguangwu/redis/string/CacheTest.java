@@ -22,9 +22,7 @@ import java.util.concurrent.TimeoutException;
 class CacheTest {
 
     private static RedisClient redisClient;
-
     private static StatefulRedisConnection<String, String> connection;
-
     private static RedisAsyncCommands<String, String> asyncCommands;
 
     @BeforeAll
