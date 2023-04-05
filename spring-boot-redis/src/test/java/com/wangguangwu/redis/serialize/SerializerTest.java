@@ -1,6 +1,6 @@
 package com.wangguangwu.redis.serialize;
 
-import com.wangguangwu.redis.dto.User;
+import com.wangguangwu.redis.entity.User;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;

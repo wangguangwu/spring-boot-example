@@ -1,11 +1,9 @@
-package com.wangguangwu.redis.dto;
+package com.wangguangwu.redis.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * @author wangguangwu
@@ -14,12 +12,12 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class Product {
 
     private String name;
 
-    private String age;
+    private double price;
 
-    private String hobby;
+    private String desc;
 
 }
