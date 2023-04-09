@@ -14,6 +14,7 @@ import java.util.concurrent.*;
 /**
  * @author wangguangwu
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("使用 List 结构来做消息队列")
 public class MqTest {
 
