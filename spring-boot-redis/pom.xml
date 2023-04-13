@@ -19,6 +19,7 @@
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <fastjson.version>2.0.26</fastjson.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <guava.version>31.1-jre</guava.version>
     </properties>
     <dependencies>
         <dependency>
@@ -63,6 +64,12 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils.version}</version>
+        </dependency>
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 
