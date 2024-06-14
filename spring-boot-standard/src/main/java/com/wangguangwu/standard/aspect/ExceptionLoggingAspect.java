@@ -36,6 +36,7 @@ public class ExceptionLoggingAspect {
 
         System.out.println("======");
         System.out.println("======");
+        System.out.println("======");
         HttpServletRequest request = attributes.getRequest();
         log.error("error url: {}, message: {}, e: ", request.getRequestURL().toString(), e.getMessage(), e);
     }
