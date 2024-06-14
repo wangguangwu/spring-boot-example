@@ -30,6 +30,7 @@ public class ExceptionLoggingAspect {
         if (attributes == null) {
             return;
         }
+        System.out.println("hello");
         HttpServletRequest request = attributes.getRequest();
         log.error("error url: {}, message: {}, e: ", request.getRequestURL().toString(), e.getMessage(), e);
     }
